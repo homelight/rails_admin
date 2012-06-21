@@ -22,7 +22,7 @@ module RailsAdmin
             @max = 0
             @abstract_models.each do |t|
               scope = @authorization_adapter && @authorization_adapter.query(:index, t)
-              current_count = t.count({}, scope)
+              current_count = t.model.estimated_count
               @max = current_count > @max ? current_count : @max
               @count[t.pretty_name] = current_count
               if t.properties.find{|c| c[:name] == :updated_at }
